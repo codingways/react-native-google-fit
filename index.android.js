@@ -562,6 +562,63 @@ class RNGoogleFit {
     )
   }
 
+  getOxygenSaturationSamples(options, callback) {
+    const startDate = Date.parse(options.startDate)
+    const endDate = Date.parse(options.endDate)
+    googleFit.getOxygenSaturationSamples(
+      startDate,
+      endDate,
+      msg => {
+        callback(msg, false)
+      },
+      res => {
+        if (res.length > 0) {
+          callback(false, prepareResponse(res, 'value'))
+        } else {
+          callback('There is no oxygen saturation data for this period', false)
+        }
+      }
+    )
+  }
+
+  getBloodGlucoseSamples(options, callback) {
+    const startDate = Date.parse(options.startDate)
+    const endDate = Date.parse(options.endDate)
+    googleFit.getBloodGlucoseSamples(
+      startDate,
+      endDate,
+      msg => {
+        callback(msg, false)
+      },
+      res => {
+        if (res.length > 0) {
+          callback(false, prepareResponse(res, 'value'))
+        } else {
+          callback('There is no blood glucose data for this period', false)
+        }
+      }
+    )
+  }
+
+  getBodyTemperatureSamples(options, callback) {
+    const startDate = Date.parse(options.startDate)
+    const endDate = Date.parse(options.endDate)
+    googleFit.getBodyTemperatureSamples(
+      startDate,
+      endDate,
+      msg => {
+        callback(msg, false)
+      },
+      res => {
+        if (res.length > 0) {
+          callback(false, prepareResponse(res, 'value'))
+        } else {
+          callback('There is no body temperature data for this period', false)
+        }
+      }
+    )
+  }
+
   getHydrationSamples = (startDate, endDate, callback) => {
     startDate = !isNil(startDate)
       ? Date.parse(startDate)

@@ -68,9 +68,9 @@ public class HeartrateHistory {
         DataReadRequest.Builder readRequestBuilder = new DataReadRequest.Builder()
                 .read(this.dataType)
                 .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS);
-        if (this.dataType == HealthDataTypes.TYPE_BLOOD_PRESSURE) {
+        /*if (this.dataType == HealthDataTypes.TYPE_BLOOD_PRESSURE) {
             readRequestBuilder.bucketByTime(1, TimeUnit.DAYS);
-        }
+        }*/
 
         DataReadRequest readRequest = readRequestBuilder.build();
 
