@@ -241,7 +241,7 @@ public class GoogleFitModule extends ReactContextBaseJavaModule implements Lifec
 
         try {
             HeartrateHistory heartrateHistory = mGoogleFitManager.getHeartrateHistory();
-            heartrateHistory.setDataType(DataType.TYPE_BLOOD_GLUCOSE);
+            heartrateHistory.setDataType(HealthDataTypes.TYPE_BLOOD_GLUCOSE);
             successCallback.invoke(heartrateHistory.save(bloodGlucoseSample));
         } catch (IllegalViewOperationException e) {
             errorCallback.invoke(e.getMessage());
@@ -255,7 +255,7 @@ public class GoogleFitModule extends ReactContextBaseJavaModule implements Lifec
 
         try {
             HeartrateHistory heartrateHistory = mGoogleFitManager.getHeartrateHistory();
-            heartrateHistory.setDataType(DataType.TYPE_BODY_TEMPERATURE);
+            heartrateHistory.setDataType(HealthDataTypes.TYPE_BODY_TEMPERATURE);
             successCallback.invoke(heartrateHistory.save(bodyTemperatureSample));
         } catch (IllegalViewOperationException e) {
             errorCallback.invoke(e.getMessage());
@@ -269,7 +269,7 @@ public class GoogleFitModule extends ReactContextBaseJavaModule implements Lifec
 
         try {
             HeartrateHistory heartrateHistory = mGoogleFitManager.getHeartrateHistory();
-            heartrateHistory.setDataType(DataType.TYPE_BLOOD_PRESSURE);
+            heartrateHistory.setDataType(HealthDataTypes.TYPE_BLOOD_PRESSURE);
             successCallback.invoke(heartrateHistory.save(bloodPressureSample));
         } catch (IllegalViewOperationException e) {
             errorCallback.invoke(e.getMessage());
@@ -283,7 +283,7 @@ public class GoogleFitModule extends ReactContextBaseJavaModule implements Lifec
 
         try {
             HeartrateHistory heartrateHistory = mGoogleFitManager.getHeartrateHistory();
-            heartrateHistory.setDataType(DataType.TYPE_OXYGEN_SATURATION);
+            heartrateHistory.setDataType(HealthDataTypes.TYPE_OXYGEN_SATURATION);
             successCallback.invoke(heartrateHistory.save(oxygenSaturationSample));
         } catch (IllegalViewOperationException e) {
             errorCallback.invoke(e.getMessage());
