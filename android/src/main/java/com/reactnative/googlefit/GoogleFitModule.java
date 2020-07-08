@@ -234,6 +234,61 @@ public class GoogleFitModule extends ReactContextBaseJavaModule implements Lifec
         }
     }
 
+    @ReactMethod
+    public void saveBloodGlucose(ReadableMap bloodGlucoseSample,
+                           Callback errorCallback,
+                           Callback successCallback) {
+
+        try {
+            HeartrateHistory heartrateHistory = mGoogleFitManager.getHeartrateHistory();
+            heartrateHistory.setDataType(DataType.TYPE_BLOOD_GLUCOSE);
+            successCallback.invoke(heartrateHistory.save(bloodGlucoseSample));
+        } catch (IllegalViewOperationException e) {
+            errorCallback.invoke(e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void saveBodyTemperature(ReadableMap bodyTemperatureSample,
+                           Callback errorCallback,
+                           Callback successCallback) {
+
+        try {
+            HeartrateHistory heartrateHistory = mGoogleFitManager.getHeartrateHistory();
+            heartrateHistory.setDataType(DataType.TYPE_BODY_TEMPERATURE);
+            successCallback.invoke(heartrateHistory.save(bodyTemperatureSample));
+        } catch (IllegalViewOperationException e) {
+            errorCallback.invoke(e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void saveBloodPressure(ReadableMap bloodPressureSample,
+                           Callback errorCallback,
+                           Callback successCallback) {
+
+        try {
+            HeartrateHistory heartrateHistory = mGoogleFitManager.getHeartrateHistory();
+            heartrateHistory.setDataType(DataType.TYPE_BLOOD_PRESSURE);
+            successCallback.invoke(heartrateHistory.save(bloodPressureSample));
+        } catch (IllegalViewOperationException e) {
+            errorCallback.invoke(e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void saveOxygenSaturation(ReadableMap oxygenSaturationSample,
+                           Callback errorCallback,
+                           Callback successCallback) {
+
+        try {
+            HeartrateHistory heartrateHistory = mGoogleFitManager.getHeartrateHistory();
+            heartrateHistory.setDataType(DataType.TYPE_OXYGEN_SATURATION);
+            successCallback.invoke(heartrateHistory.save(oxygenSaturationSample));
+        } catch (IllegalViewOperationException e) {
+            errorCallback.invoke(e.getMessage());
+        }
+    }
 
     @ReactMethod
     public void getDailyCalorieSamples(double startDate,

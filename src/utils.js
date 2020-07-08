@@ -28,7 +28,19 @@ export function lbsAndOzToK(imperial) {
   return pounds * 0.45359237
 }
 
+export function farenheitToCelsius(imperial) {
+  return (imperial - 32) * 5/9
+}
+
+export function mgdlToMmol(imperial) {
+  return imperial / 18
+}
+
 export const KgToLbs = metric => metric * 2.2046
+
+export const MmolToMgdl = metric => metric * 18
+
+export const CelsiusToFarenheit = metric => (metric * 9/5) + 32
 
 export function isNil(value) {
   return value == null

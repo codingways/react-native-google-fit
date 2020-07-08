@@ -6,7 +6,11 @@ import {
   buildDailySteps,
   isNil,
   KgToLbs,
+  MmolToMgdl,
+  CelsiusToFarenheit,
   lbsAndOzToK,
+  farenheitToCelsius,
+  mgdlToMmol,
   prepareDailyResponse,
   prepareResponse,
   prepareHydrationResponse,
@@ -432,6 +436,66 @@ class RNGoogleFit {
     )
   }
 
+  saveBloodGlucose(options, callback) {
+    if (options.unit == 'mg/dL') {
+      const mmol = mgdlToMmol(options.value);
+      options.value = Math.round(mmol * 100) / 100
+    }
+    options.date = Date.parse(options.date)
+    googleFit.saveBloodGlucose(
+      options,
+      msg => {
+        callback(msg, false)
+      },
+      res => {
+        callback(false, res)
+      }
+    )
+  }
+
+  saveBodyTemperature(options, callback) {
+    if (options.unit == 'farenheit') {
+      const celsius = farenheitToCelsius(options.value)
+      options.value = Math.round(celsius * 100) / 100
+    }
+    options.date = Date.parse(options.date)
+    googleFit.saveBodyTemperature(
+      options,
+      msg => {
+        callback(msg, false)
+      },
+      res => {
+        callback(false, res)
+      }
+    )
+  }
+
+  /*saveBloodPressure(options, callback) {
+    options.date = Date.parse(options.date)
+    googleFit.saveBloodPressure(
+      options,
+      msg => {
+        callback(msg, false)
+      },
+      res => {
+        callback(false, res)
+      }
+    )
+  }*/
+
+  saveOxygenSaturation(options, callback) {
+    options.date = Date.parse(options.date)
+    googleFit.saveOxygenSaturation(
+      options,
+      msg => {
+        callback(msg, false)
+      },
+      res => {
+        callback(false, res)
+      }
+    )
+  }
+  
   deleteWeight = (options, callback) => {
     if (options.unit === 'pound') {
       options.value = lbsAndOzToK({ pounds: options.value, ounces: 0 }) //convert pounds and ounces to kg
@@ -592,6 +656,14 @@ class RNGoogleFit {
       },
       res => {
         if (res.length > 0) {
+          res = res.map(el => {
+            if (el.value) {
+              if (options.unit === 'mg/dL') {
+                el.value = MmolToMgdl(el.value)
+              }
+            }
+            return el
+          })
           callback(false, prepareResponse(res, 'value'))
         } else {
           callback('There is no blood glucose data for this period', false)
@@ -611,6 +683,14 @@ class RNGoogleFit {
       },
       res => {
         if (res.length > 0) {
+          res = res.map(el => {
+            if (el.value) {
+              if (options.unit === 'farenheit') {
+                el.value = CelsiusToFarenheit(el.value)
+              }
+            }
+            return el
+          })
           callback(false, prepareResponse(res, 'value'))
         } else {
           callback('There is no body temperature data for this period', false)
