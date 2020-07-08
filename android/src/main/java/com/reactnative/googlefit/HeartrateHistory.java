@@ -108,28 +108,27 @@ public class HeartrateHistory {
         this.Dataset = DataSet.create(dataSource);
         DataPoint dataPoint = this.Dataset.createDataPoint().setTimeInterval((long)sample.getDouble("date"), (long)sample.getDouble("date"), TimeUnit.MILLISECONDS);
 
+        Double sampleValue = sample.getDouble("value");
+
         if(this.dataType == HealthDataTypes.TYPE_OXYGEN_SATURATION) {   
-            float f1 = Float.valueOf(sample.getDouble("value").toString());
+            float f1 = Float.valueOf(sampleValue.toString());
             float f2 = Float.valueOf("0.0");
 
             dataPoint = dataPoint.setFloatValues(f1, f2);
             dataPoint = dataPoint.setIntValues(1, 1, 1);
-
-            dataSet.add(dataPoint);
         } else if(this.dataType == HealthDataTypes.TYPE_BODY_TEMPERATURE) {
-            float f1 = Float.valueOf(sample.getDouble("value").toString());
+            float f1 = Float.valueOf(sampleValue.toString());
 
             dataPoint = dataPoint.setFloatValues(f1);
             dataPoint = dataPoint.setIntValues(1);
-
-            dataSet.add(dataPoint);
         } else {
-            float f1 = Float.valueOf(sample.getDouble("value").toString());
+            float f1 = Float.valueOf(sampleValue.toString());
 
             dataPoint = dataPoint.setFloatValues(f1);
         }
 
-        
+        this.Dataset.add(dataPoint);
+
         new InsertAndVerifyDataTask(this.Dataset).execute();
 
         return true;
