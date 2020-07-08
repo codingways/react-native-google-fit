@@ -6,11 +6,11 @@ import {
   buildDailySteps,
   isNil,
   KgToLbs,
-  MmolToMgdl,
+  MmolPerLToMgPerdL,
   CelsiusToFarenheit,
   lbsAndOzToK,
   farenheitToCelsius,
-  mgdlToMmol,
+  mgPerdLTommolPerL,
   prepareDailyResponse,
   prepareResponse,
   prepareHydrationResponse,
@@ -437,8 +437,8 @@ class RNGoogleFit {
   }
 
   saveBloodGlucose(options, callback) {
-    if (options.unit == 'mg/dL') {
-      options.value = mgdlToMmol(options.value)
+    if (options.unit == 'mgPerdL') {
+      options.value = mgPerdLTommolPerL(options.value)
     }
     options.date = Date.parse(options.date)
     googleFit.saveBloodGlucose(
@@ -656,8 +656,8 @@ class RNGoogleFit {
         if (res.length > 0) {
           res = res.map(el => {
             if (el.value) {
-              if (options.unit === 'mg/dL') {
-                el.value = MmolToMgdl(el.value)
+              if (options.unit === 'mgPerdL') {
+                el.value = MmolPerLToMgPerdL(el.value)
               }
             }
             return el
