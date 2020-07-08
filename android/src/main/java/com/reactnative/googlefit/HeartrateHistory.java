@@ -112,15 +112,17 @@ public class HeartrateHistory {
 
         if(this.dataType == HealthDataTypes.TYPE_OXYGEN_SATURATION) {   
             float f1 = Float.valueOf(sampleValue.toString());
-            float f2 = Float.valueOf("0.0");
 
-            dataPoint = dataPoint.setFloatValues(f1, f2);
-            dataPoint = dataPoint.setIntValues(1, 1, 1);
+            dataPoint.getValue(HealthFields.FIELD_OXYGEN_SATURATION).setFloat(f1);
+            dataPoint.getValue(HealthFields.FIELD_SUPPLEMENTAL_OXYGEN_FLOW_RATE).setFloat(0.0f);
+            dataPoint.getValue(HealthFields.FIELD_OXYGEN_THERAPY_ADMINISTRATION_MODE).setInt(1);
+            dataPoint.getValue(HealthFields.FIELD_OXYGEN_SATURATION_SYSTEM ).setInt(1);
+            dataPoint.getValue(HealthFields.FIELD_OXYGEN_SATURATION_MEASUREMENT_METHOD ).setInt(1);
         } else if(this.dataType == HealthDataTypes.TYPE_BODY_TEMPERATURE) {
             float f1 = Float.valueOf(sampleValue.toString());
 
-            dataPoint = dataPoint.setFloatValues(f1);
-            dataPoint = dataPoint.setIntValues(1);
+            dataPoint.getValue(HealthFields.FIELD_BODY_TEMPERATURE ).setFloat(f1);
+            dataPoint.getValue(HealthFields.FIELD_BODY_TEMPERATURE_MEASUREMENT_LOCATION ).setInt(1);
         } else {
             float f1 = Float.valueOf(sampleValue.toString());
 
@@ -166,7 +168,7 @@ public class HeartrateHistory {
 
             // Before querying the data, check to see if the insertion succeeded.
             if (!insertStatus.isSuccess()) {
-                //Log.i(TAG, "There was a problem inserting the dataset.");
+                //Log.i(TAG, insertStatus.getStatusMessage());
                 return null;
             }
 
