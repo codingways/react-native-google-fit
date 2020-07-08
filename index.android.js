@@ -438,8 +438,7 @@ class RNGoogleFit {
 
   saveBloodGlucose(options, callback) {
     if (options.unit == 'mg/dL') {
-      const mmol = mgdlToMmol(options.value);
-      options.value = Math.round(mmol * 100) / 100
+      options.value = mgdlToMmol(options.value)
     }
     options.date = Date.parse(options.date)
     googleFit.saveBloodGlucose(
@@ -455,8 +454,7 @@ class RNGoogleFit {
 
   saveBodyTemperature(options, callback) {
     if (options.unit == 'farenheit') {
-      const celsius = farenheitToCelsius(options.value)
-      options.value = Math.round(celsius * 100) / 100
+      options.value = farenheitToCelsius(options.value)
     }
     options.date = Date.parse(options.date)
     googleFit.saveBodyTemperature(
