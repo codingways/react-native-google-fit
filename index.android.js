@@ -7,9 +7,9 @@ import {
   isNil,
   KgToLbs,
   MmolPerLToMgPerdL,
-  CelsiusToFarenheit,
+  CelsiusToFahrenheit,
   lbsAndOzToK,
-  farenheitToCelsius,
+  fahrenheitToCelsius,
   mgPerdLTommolPerL,
   prepareDailyResponse,
   prepareResponse,
@@ -182,7 +182,7 @@ class RNGoogleFit {
               obj.source =
                 dev.source.appPackage +
                 (dev.source.stream ? ':' + dev.source.stream : '')
-              obj.steps = buildDailySteps(dev.steps)
+              obj.steps = dev.steps
               return obj
             }, this)
           )
@@ -453,8 +453,8 @@ class RNGoogleFit {
   }
 
   saveBodyTemperature(options, callback) {
-    if (options.unit == 'farenheit') {
-      options.value = farenheitToCelsius(options.value)
+    if (options.unit == 'fahrenheit') {
+      options.value = fahrenheitToCelsius(options.value)
     }
     options.date = Date.parse(options.date)
     googleFit.saveBodyTemperature(
@@ -683,8 +683,8 @@ class RNGoogleFit {
         if (res.length > 0) {
           res = res.map(el => {
             if (el.value) {
-              if (options.unit === 'farenheit') {
-                el.value = CelsiusToFarenheit(el.value)
+              if (options.unit === 'fahrenheit') {
+                el.value = CelsiusToFahrenheit(el.value)
               }
             }
             return el
